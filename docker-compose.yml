@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  sms-app:
+    build: .
+    container_name: simple-sms-sender
+    ports:
+      - "8080:80"
+    volumes:
+      - ./simple-sms.html:/var/www/html/simple-sms.html
+      - ./send-sms.php:/var/www/html/send-sms.php
+    environment:
+      - APACHE_DOCUMENT_ROOT=/var/www/html
+    restart: unless-stopped
+    networks:
+      - sms-network
+
+networks:
+  sms-network:
+    driver: bridge
